@@ -2,38 +2,47 @@
 
 Download all photos a user is tagged in on Facebook.
 
-## Dependencies
+### Installation using your favorite Terminal application on MacOS
 
-Requires Python 3. The Python Software Foundation provides instructions for installing Python 3 on [Unix](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python) and [Windows](https://docs.python.org/3/using/windows.html#installing-python).
-
-Selenium is also required. It is a software testing framework that allows Python to take control of a web browser. You can install Selenium by running the following.
-
-```
-pip install selenium
+#### Install Homebrew if you don't already have it.
+```sh
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-If you have several versions of pip installed, you may need to run the follwing.
+#### Use brew to install system dependencies
+```sh
+brew install pyenv pyenv-virtualenv
+pyenv install 3.7.2
+pyenv virtualenv 3.7.2 facebook-tagged-photos
+pyenv local facebook-tagged-photos
+```
+
+*If you're running MacOS Mojave, you may run into problems with the above commands, which could be solved by the commands below which install xcode command line tools and the associated headers package.*
+
+```sh
+xcode-select --install
+```
+
+```sh
+sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
+```
+
+#### Install python dependencies
 
 ```
-pip3 install selenium
+pip install -r requirements.txt
 ```
-
-Chrome is used to interact with Facebook via Selenium. As such, you will need to install a driver for Chrome. The driver can be found [here](https://sites.google.com/a/chromium.org/chromedriver/downloads). If using a Unix system, add the driver to `/usr/local/bin`.
-
-Clone this repo and you're good to go!
 
 ### Running
 
-First, find your Facebook user ID. At the time of writing, [this](https://findmyfbid.in) tool was functional.
-
-Run the below command in the command line from within the project directory, replacing `<your_facebook_id>` with your Facebook ID.
+Run the below command in the command line from within the project directory - you will be prompted to log in to Facebook so that the script can begin working.
 
 ```
-python3 facebook_photos.py <your_facebook_id>
+python facebook_photos.py
 ```
 
 If you'd prefer to have the photos saved elsewhere, provide another argument of the desired output directory. This results in the following command.
 
 ```
-python3 facebook_photos.py <your_facebook_id> <your_output_directory>
+python facebook_photos.py <your_output_directory>
 ```
